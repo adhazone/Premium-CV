@@ -951,9 +951,163 @@ body.editing [contenteditable="true"] {
   .tema-opts { gap: 4px; }
   .topt { font-size: .65rem; padding: 4px 8px; }
 }
+
+/* ── LOCK SCREEN ── */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.lock-box {
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 24px;
+  padding: 40px 32px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  animation: lockBounce .6s ease;
+}
+
+@keyframes lockBounce {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.lock-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -.3px;
+}
+
+.lock-sub {
+  font-size: .82rem;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.lock-input-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.lock-input {
+  width: 100%;
+  padding: 14px 48px 14px 18px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border .2s;
+  text-align: center;
+}
+
+.lock-input::placeholder {
+  color: rgba(255,255,255,.3);
+  letter-spacing: 1px;
+  text-transform: none;
+  font-weight: 400;
+  font-size: .85rem;
+}
+
+.lock-input:focus { border-color: rgba(255,255,255,.4); }
+.lock-input.error { border-color: #ef4444; animation: shake .3s; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25%      { transform: translateX(-8px); }
+  75%      { transform: translateX(8px); }
+}
+
+.lock-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: .92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .5px;
+}
+
+.lock-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99,102,241,.4); }
+.lock-btn:active { transform: translateY(0); }
+
+.lock-err {
+  font-size: .76rem;
+  color: #f87171;
+  margin-top: 10px;
+  min-height: 18px;
+  font-weight: 600;
+}
+
+.lock-footer {
+  margin-top: 24px;
+  font-size: .7rem;
+  color: rgba(255,255,255,.25);
+}
+
+.lock-attempts {
+  font-size: .72rem;
+  color: rgba(255,255,255,.35);
+  margin-top: 8px;
+}
 </style>
 </head>
 <body class="tm">
+
+<!-- =============================================
+     LOCK SCREEN
+============================================= -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">CV Premium v4</div>
+    <div class="lock-sub">Masukkan kode akses untuk membuka template premium ini</div>
+    <div class="lock-input-wrap">
+      <input
+        class="lock-input"
+        id="lockInput"
+        type="text"
+        placeholder="Masukkan kode akses..."
+        maxlength="20"
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') checkCode()"
+      />
+    </div>
+    <button class="lock-btn" onclick="checkCode()">🔓 Buka Sekarang</button>
+    <div class="lock-err" id="lockErr"></div>
+    <div class="lock-attempts" id="lockAttempts"></div>
+    <div class="lock-footer">© Adhazone Premium Templates</div>
+  </div>
+</div>
 
 <!-- =============================================
      TOOLBAR
@@ -1033,7 +1187,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Kompetensi -->
       <div class="s-sec" id="ss-sk">
-        <div class="s-ttl"><span class="emoji-s">⚡</span> Kompetensi <button class="sec-del" onclick="delSec('ss-sk')">✕ Hapus</button></div>
+        <div class="s-ttl"><span class="emoji-s">⚡</span> <span class="s-ttl-txt" contenteditable="false">Kompetensi</span> <button class="sec-del" onclick="delSec('ss-sk')">✕ Hapus</button></div>
         <div id="skList">
           <div class="sk-row"><div class="sk-wrap"><span class="sk-name" contenteditable="false">Rancang Pembelajaran</span><div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div><input type="range" class="range-sl" min="10" max="100" value="90" oninput="setBar(this)"/></div><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
           <div class="sk-row"><div class="sk-wrap"><span class="sk-name" contenteditable="false">Kurikulum Merdeka</span><div class="sk-bar"><div class="sk-fill" style="width:88%"></div></div><input type="range" class="range-sl" min="10" max="100" value="88" oninput="setBar(this)"/></div><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
@@ -1046,7 +1200,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Tools -->
       <div class="s-sec" id="ss-tl">
-        <div class="s-ttl"><span class="emoji-s">🛠️</span> Tools <button class="sec-del" onclick="delSec('ss-tl')">✕ Hapus</button></div>
+        <div class="s-ttl"><span class="emoji-s">🛠️</span> <span class="s-ttl-txt" contenteditable="false">Tools</span> <button class="sec-del" onclick="delSec('ss-tl')">✕ Hapus</button></div>
         <div class="tags-wrap" id="tlList">
           <span class="s-tag"><span contenteditable="false">Canva</span><button class="d-btn" onclick="this.parentElement.remove()">✕</button></span>
           <span class="s-tag"><span contenteditable="false">Quizizz</span><button class="d-btn" onclick="this.parentElement.remove()">✕</button></span>
@@ -1059,7 +1213,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Bahasa -->
       <div class="s-sec" id="ss-lg">
-        <div class="s-ttl"><span class="emoji-s">🌐</span> Bahasa <button class="sec-del" onclick="delSec('ss-lg')">✕ Hapus</button></div>
+        <div class="s-ttl"><span class="emoji-s">🌐</span> <span class="s-ttl-txt" contenteditable="false">Bahasa</span> <button class="sec-del" onclick="delSec('ss-lg')">✕ Hapus</button></div>
         <div id="lgList">
           <div class="lg-row"><div class="lg-wrap"><div class="lg-name" contenteditable="false">Bahasa Indonesia</div><div class="lg-lv" contenteditable="false">Native</div><div class="sk-bar"><div class="sk-fill" style="width:100%"></div></div><input type="range" class="range-sl" min="10" max="100" value="100" oninput="setBar(this)"/></div><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
           <div class="lg-row"><div class="lg-wrap"><div class="lg-name" contenteditable="false">Bahasa Inggris</div><div class="lg-lv" contenteditable="false">Intermediate</div><div class="sk-bar"><div class="sk-fill" style="width:70%"></div></div><input type="range" class="range-sl" min="10" max="100" value="70" oninput="setBar(this)"/></div><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
@@ -1069,7 +1223,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Penghargaan -->
       <div class="s-sec" id="ss-ac">
-        <div class="s-ttl"><span class="emoji-s">🏆</span> Penghargaan <button class="sec-del" onclick="delSec('ss-ac')">✕ Hapus</button></div>
+        <div class="s-ttl"><span class="emoji-s">🏆</span> <span class="s-ttl-txt" contenteditable="false">Penghargaan</span> <button class="sec-del" onclick="delSec('ss-ac')">✕ Hapus</button></div>
         <div id="acList">
           <div class="ac-row"><div class="ac-ic" contenteditable="false">🥇</div><span class="ac-txt" contenteditable="false">Penghargaan 1</span><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
           <div class="ac-row"><div class="ac-ic" contenteditable="false">🎓</div><span class="ac-txt" contenteditable="false">Penghargaan 2</span><button class="d-btn" onclick="this.parentElement.remove()">✕</button></div>
@@ -1085,7 +1239,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Pendidikan -->
       <div class="m-sec" id="ms-edu">
-        <div class="m-ttl"><span class="emoji-s">🎓</span> Pendidikan <button class="sec-del" onclick="delMain('ms-edu')">✕ Hapus</button><div class="m-ttl-line"></div></div>
+        <div class="m-ttl"><span class="emoji-s">🎓</span> <span class="m-ttl-txt" contenteditable="false">Pendidikan</span> <button class="sec-del" onclick="delMain('ms-edu')">✕ Hapus</button><div class="m-ttl-line"></div></div>
         <div id="eduList">
           <div class="entry">
             <button class="e-del" onclick="delEntry(this)">✕</button>
@@ -1099,7 +1253,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Pengalaman -->
       <div class="m-sec" id="ms-exp">
-        <div class="m-ttl"><span class="emoji-s">💼</span> Pengalaman <button class="sec-del" onclick="delMain('ms-exp')">✕ Hapus</button><div class="m-ttl-line"></div></div>
+        <div class="m-ttl"><span class="emoji-s">💼</span> <span class="m-ttl-txt" contenteditable="false">Pengalaman</span> <button class="sec-del" onclick="delMain('ms-exp')">✕ Hapus</button><div class="m-ttl-line"></div></div>
         <div id="expList">
           <div class="entry">
             <button class="e-del" onclick="delEntry(this)">✕</button>
@@ -1119,7 +1273,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Organisasi -->
       <div class="m-sec" id="ms-org">
-        <div class="m-ttl"><span class="emoji-s">🤝</span> Organisasi <button class="sec-del" onclick="delMain('ms-org')">✕ Hapus</button><div class="m-ttl-line"></div></div>
+        <div class="m-ttl"><span class="emoji-s">🤝</span> <span class="m-ttl-txt" contenteditable="false">Organisasi</span> <button class="sec-del" onclick="delMain('ms-org')">✕ Hapus</button><div class="m-ttl-line"></div></div>
         <div id="orgList">
           <div class="entry">
             <button class="e-del" onclick="delEntry(this)">✕</button>
@@ -1133,7 +1287,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Sertifikasi -->
       <div class="m-sec" id="ms-cert">
-        <div class="m-ttl"><span class="emoji-s">📜</span> Sertifikasi <button class="sec-del" onclick="delMain('ms-cert')">✕ Hapus</button><div class="m-ttl-line"></div></div>
+        <div class="m-ttl"><span class="emoji-s">📜</span> <span class="m-ttl-txt" contenteditable="false">Sertifikasi</span> <button class="sec-del" onclick="delMain('ms-cert')">✕ Hapus</button><div class="m-ttl-line"></div></div>
         <div id="certList">
           <div class="entry">
             <button class="e-del" onclick="delEntry(this)">✕</button>
@@ -1186,7 +1340,7 @@ body.editing [contenteditable="true"] {
 
 <div id="saveInd">💾 Tersimpan</div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 'use strict';
 
 /* ── TEMA ── */
@@ -1221,7 +1375,9 @@ const ESEL = [
   '.lg-name', '.lg-lv',
   '.ac-ic', '.ac-txt',
   '.e-title', '.e-org', '.e-date', '.e-desc', '.e-badge',
-  '.ft-q', '.ft-n'
+  '.ft-q', '.ft-n',
+  '.s-ttl-txt',
+  '.m-ttl-txt'
 ].join(',');
 
 function toggleEdit() {
@@ -1435,7 +1591,87 @@ if (savedTema) {
 const savedEmoji = localStorage.getItem('cv4-emoji');
 if (savedEmoji === 'false') { emojiOn = true; toggleEmoji(); }
 
-window.addEventListener('load', () => setTimeout(autoLoad, 400));
+window.addEventListener('load', () => initLock());
+
+/* ── KODE AKSES ── */
+
+// ═══════════════════════════════════════
+// DAFTAR KODE AKSES YANG VALID
+// Tambah atau hapus kode di sini
+// Format: 'KODE': 'nama pembeli (opsional)'
+// ═══════════════════════════════════════
+const KODE_VALID = {
+  'ADHAZONE-2026': 'Pembeli',
+};
+
+let attempts = 0;
+const MAX_ATTEMPTS = 5;
+
+function checkCode() {
+  const input = document.getElementById('lockInput');
+  const kode = input.value.trim().toUpperCase();
+  const errEl = document.getElementById('lockErr');
+  const attEl = document.getElementById('lockAttempts');
+
+  // Cek sudah terlalu banyak salah
+  if (attempts >= MAX_ATTEMPTS) {
+    errEl.textContent = '⛔ Terlalu banyak percobaan. Refresh halaman.';
+    input.disabled = true;
+    return;
+  }
+
+  // Cek kode
+  if (KODE_VALID[kode]) {
+    // ✅ BENAR
+    localStorage.setItem('cv4-access', kode);
+    localStorage.setItem('cv4-access-time', Date.now());
+
+    const lock = document.getElementById('lockScreen');
+    lock.style.transition = 'opacity .5s';
+    lock.style.opacity = '0';
+    setTimeout(() => {
+      lock.style.display = 'none';
+      // Load data tersimpan setelah kunci terbuka
+      autoLoad();
+    }, 500);
+
+    input.classList.remove('error');
+    errEl.textContent = '';
+
+  } else {
+    // ❌ SALAH
+    attempts++;
+    input.classList.add('error');
+    setTimeout(() => input.classList.remove('error'), 400);
+    input.value = '';
+
+    const sisa = MAX_ATTEMPTS - attempts;
+    errEl.textContent = '❌ Kode tidak valid!';
+    if (sisa > 0) {
+      attEl.textContent = `Sisa percobaan: ${sisa}`;
+    } else {
+      attEl.textContent = '';
+      errEl.textContent = '⛔ Akses diblokir. Refresh halaman.';
+      input.disabled = true;
+    }
+  }
+}
+
+function initLock() {
+  const savedCode = localStorage.getItem('cv4-access');
+
+  if (savedCode && KODE_VALID[savedCode]) {
+    // Sudah pernah akses di perangkat ini — langsung buka
+    document.getElementById('lockScreen').style.display = 'none';
+    // Baru load data setelah lock terbuka
+    setTimeout(autoLoad, 400);
+  }
+  // Kalau tidak ada kode → lockScreen tetap tampil
+  // autoLoad TIDAK dipanggil sampai kode diinput
+}
+
+// Jalankan saat halaman load — GANTIKAN window.addEventListener load
+initLock();
 </script>
 </body>
    </html>
