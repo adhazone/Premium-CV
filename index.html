@@ -1391,4 +1391,13 @@ document.getElementById('cvDoc').addEventListener('input', autoSave);
 const savedTema = localStorage.getItem('cv4-tema');
 if (savedTema) {
   const btn = document.querySelector('.topt.' + savedTema);
-  if (btn) setTema(
+  if (btn) setTema(savedTema, btn);
+}
+
+const savedEmoji = localStorage.getItem('cv4-emoji');
+if (savedEmoji === 'false') { emojiOn = true; toggleEmoji(); }
+
+window.addEventListener('load', () => setTimeout(autoLoad, 400));
+</script>
+</body>
+</html>
