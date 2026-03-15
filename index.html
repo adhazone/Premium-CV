@@ -859,7 +859,82 @@ body.editing [contenteditable="true"] {
 }
 
 /* =============================================
-   PRINT — A4 OPTIMIZED
+   PRINT SIZE CLASSES
+============================================= */
+/* KECIL — isian sedikit, font besar */
+body.print-kecil .cv-name     { font-size: 3.2rem !important; }
+body.print-kecil .cv-role     { font-size: 1rem !important; letter-spacing: 3.5px !important; }
+body.print-kecil .cv-about    { font-size: 1.1rem !important; line-height: 2 !important; }
+body.print-kecil .s-ttl       { font-size: 0.88rem !important; }
+body.print-kecil .sk-name     { font-size: 1rem !important; }
+body.print-kecil .s-tag       { font-size: 0.9rem !important; padding: 6px 13px !important; }
+body.print-kecil .lg-name     { font-size: 1rem !important; }
+body.print-kecil .lg-lv       { font-size: 0.86rem !important; }
+body.print-kecil .ac-txt      { font-size: 0.95rem !important; }
+body.print-kecil .m-ttl       { font-size: 1.3rem !important; margin-bottom: 16px !important; }
+body.print-kecil .e-title     { font-size: 1.1rem !important; }
+body.print-kecil .e-org       { font-size: 0.95rem !important; }
+body.print-kecil .e-date      { font-size: 0.88rem !important; }
+body.print-kecil .e-desc      { font-size: 1rem !important; line-height: 2 !important; }
+body.print-kecil .contact-row { font-size: 0.92rem !important; }
+body.print-kecil .hd-left     { padding: 36px 20px 28px !important; }
+body.print-kecil .hd-right    { padding: 36px 36px 28px 28px !important; }
+body.print-kecil .cv-side     { padding: 30px 20px 36px !important; }
+body.print-kecil .cv-main     { padding: 30px 36px 36px 28px !important; }
+body.print-kecil .s-sec       { margin-bottom: 30px !important; }
+body.print-kecil .m-sec       { margin-bottom: 26px !important; }
+body.print-kecil .entry       { margin-bottom: 20px !important; }
+
+/* NORMAL — isian sedang */
+body.print-normal .cv-name    { font-size: 2.8rem !important; }
+body.print-normal .cv-role    { font-size: 0.9rem !important; letter-spacing: 3px !important; }
+body.print-normal .cv-about   { font-size: 1rem !important; line-height: 1.9 !important; }
+body.print-normal .s-ttl      { font-size: 0.78rem !important; }
+body.print-normal .sk-name    { font-size: 0.92rem !important; }
+body.print-normal .s-tag      { font-size: 0.82rem !important; padding: 5px 11px !important; }
+body.print-normal .lg-name    { font-size: 0.92rem !important; }
+body.print-normal .lg-lv      { font-size: 0.8rem !important; }
+body.print-normal .ac-txt     { font-size: 0.88rem !important; }
+body.print-normal .m-ttl      { font-size: 1.15rem !important; margin-bottom: 14px !important; }
+body.print-normal .e-title    { font-size: 1rem !important; }
+body.print-normal .e-org      { font-size: 0.88rem !important; }
+body.print-normal .e-date     { font-size: 0.82rem !important; }
+body.print-normal .e-desc     { font-size: 0.9rem !important; line-height: 1.8 !important; }
+body.print-normal .contact-row{ font-size: 0.85rem !important; }
+body.print-normal .hd-left    { padding: 32px 18px 24px !important; }
+body.print-normal .hd-right   { padding: 32px 32px 24px 24px !important; }
+body.print-normal .cv-side    { padding: 26px 18px 32px !important; }
+body.print-normal .cv-main    { padding: 26px 32px 32px 24px !important; }
+body.print-normal .s-sec      { margin-bottom: 26px !important; }
+body.print-normal .m-sec      { margin-bottom: 22px !important; }
+body.print-normal .entry      { margin-bottom: 16px !important; }
+
+/* BANYAK — isian banyak, font kecil */
+body.print-banyak .cv-name    { font-size: 2rem !important; }
+body.print-banyak .cv-role    { font-size: 0.72rem !important; letter-spacing: 2px !important; }
+body.print-banyak .cv-about   { font-size: 0.76rem !important; line-height: 1.6 !important; }
+body.print-banyak .s-ttl      { font-size: 0.62rem !important; }
+body.print-banyak .sk-name    { font-size: 0.76rem !important; }
+body.print-banyak .s-tag      { font-size: 0.68rem !important; padding: 3px 8px !important; }
+body.print-banyak .lg-name    { font-size: 0.76rem !important; }
+body.print-banyak .lg-lv      { font-size: 0.66rem !important; }
+body.print-banyak .ac-txt     { font-size: 0.72rem !important; }
+body.print-banyak .m-ttl      { font-size: 0.9rem !important; margin-bottom: 9px !important; }
+body.print-banyak .e-title    { font-size: 0.82rem !important; }
+body.print-banyak .e-org      { font-size: 0.72rem !important; }
+body.print-banyak .e-date     { font-size: 0.66rem !important; }
+body.print-banyak .e-desc     { font-size: 0.74rem !important; line-height: 1.55 !important; }
+body.print-banyak .contact-row{ font-size: 0.7rem !important; }
+body.print-banyak .hd-left    { padding: 20px 14px 16px !important; }
+body.print-banyak .hd-right   { padding: 20px 24px 16px 18px !important; }
+body.print-banyak .cv-side    { padding: 16px 14px 20px !important; }
+body.print-banyak .cv-main    { padding: 16px 22px 20px 16px !important; }
+body.print-banyak .s-sec      { margin-bottom: 16px !important; }
+body.print-banyak .m-sec      { margin-bottom: 13px !important; }
+body.print-banyak .entry      { margin-bottom: 9px !important; }
+
+/* =============================================
+   PRINT — A4
 ============================================= */
 @media print {
   *, *::before, *::after {
@@ -868,10 +943,7 @@ body.editing [contenteditable="true"] {
     color-adjust: exact !important;
   }
 
-  @page {
-    size: A4 portrait;
-    margin: 8mm;
-  }
+  @page { size: A4 portrait; margin: 8mm; }
 
   html, body {
     margin: 0 !important;
@@ -882,54 +954,19 @@ body.editing [contenteditable="true"] {
     width: 100% !important;
   }
 
-  .toolbar, #saveInd, .modal-bg,
+  .toolbar, #saveInd, .modal-bg, .print-modal-bg,
   .add-btn, .add-sec, .d-btn, .e-del,
-  .sec-del, .c-del, .photo-sizer, .range-sl
-  { display: none !important; }
+  .sec-del, .c-del, .photo-sizer, .range-sl,
+  #lockScreen { display: none !important; }
 
   [contenteditable] { outline: none !important; }
 
-  /* CV penuh lebar */
   .cv {
     width: 100% !important;
     max-width: 100% !important;
     box-shadow: none !important;
     margin: 0 !important;
   }
-
-  /* Perbesar semua elemen agar memenuhi halaman */
-  .cv-name     { font-size: 2.8rem !important; }
-  .cv-role     { font-size: 0.9rem !important; letter-spacing: 3px !important; }
-  .cv-about    { font-size: 1rem !important; line-height: 1.9 !important; }
-
-  .s-ttl       { font-size: 0.78rem !important; letter-spacing: 2.5px !important; }
-  .sk-name     { font-size: 0.92rem !important; }
-  .sk-bar      { height: 5px !important; }
-  .s-tag       { font-size: 0.82rem !important; padding: 5px 11px !important; }
-  .lg-name     { font-size: 0.92rem !important; }
-  .lg-lv       { font-size: 0.8rem !important; }
-  .ac-txt      { font-size: 0.88rem !important; }
-  .ac-ic       { width: 20px !important; height: 20px !important; font-size: 0.72rem !important; }
-
-  .m-ttl       { font-size: 1.15rem !important; margin-bottom: 14px !important; }
-  .e-title     { font-size: 1rem !important; }
-  .e-org       { font-size: 0.88rem !important; }
-  .e-date      { font-size: 0.82rem !important; }
-  .e-desc      { font-size: 0.9rem !important; line-height: 1.8 !important; }
-
-  .contact-row { font-size: 0.85rem !important; }
-  .ft-q        { font-size: 0.92rem !important; }
-  .ft-n        { font-size: 0.78rem !important; }
-
-  /* Perbesar padding agar konten lebih menyebar */
-  .hd-left     { padding: 32px 18px 24px !important; }
-  .hd-right    { padding: 32px 32px 24px 24px !important; }
-  .cv-side     { padding: 26px 18px 32px !important; }
-  .cv-main     { padding: 26px 32px 32px 24px !important; }
-  .s-sec       { margin-bottom: 26px !important; }
-  .m-sec       { margin-bottom: 22px !important; }
-  .entry       { margin-bottom: 16px !important; padding-left: 14px !important; }
-  .cv-ft       { padding: 14px 32px !important; }
 
   .m-sec { page-break-inside: avoid; }
   .entry { page-break-inside: avoid; }
@@ -950,6 +987,105 @@ body.editing [contenteditable="true"] {
   .ft-n { margin-left: 0; }
   .tema-opts { gap: 4px; }
   .topt { font-size: .65rem; padding: 4px 8px; }
+}
+
+/* ── PRINT SIZE MODAL ── */
+.print-modal-bg {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.print-modal-bg.open { display: flex; }
+
+.print-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 24px;
+  max-width: 340px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  text-align: center;
+}
+
+.print-modal h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.print-modal p {
+  font-size: .78rem;
+  color: #888;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.print-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.print-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: all .18s;
+  text-align: left;
+}
+.print-opt:hover { border-color: #6366f1; background: #eef2ff; }
+.print-opt.sel { border-color: #6366f1; background: #eef2ff; }
+
+.print-opt-icon { font-size: 1.4rem; flex-shrink: 0; }
+.print-opt-info { flex: 1; }
+.print-opt-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 2px;
+}
+.print-opt-desc {
+  font-size: .72rem;
+  color: #888;
+}
+
+.print-go {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: .88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all .2s;
+}
+.print-go:hover { background: #333; }
+
+.print-cancel {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: .78rem;
+  color: #aaa;
+  cursor: pointer;
 }
 
 /* ── LOCK SCREEN ── */
@@ -1119,7 +1255,7 @@ body.editing [contenteditable="true"] {
       <button class="tbtn danger" onclick="resetCV()">🗑️ Reset</button>
       <button class="tbtn" id="emojiBtn" onclick="toggleEmoji()">😊 Emoji</button>
       <button class="tbtn" id="editBtn" onclick="toggleEdit()">✏️ Edit</button>
-      <button class="tbtn pdf" onclick="window.print()">🖨️ PDF</button>
+      <button class="tbtn pdf" onclick="openPrint()">🖨️ PDF</button>
     </div>
   </div>
   <div class="tema-bar">
@@ -1335,6 +1471,40 @@ body.editing [contenteditable="true"] {
       <button class="modal-cancel" onclick="closeModal()">Batal</button>
       <button class="modal-ok" onclick="doAddSec()">Tambahkan ✓</button>
     </div>
+  </div>
+</div>
+
+<!-- PRINT SIZE MODAL -->
+<div class="print-modal-bg" id="printModalBg">
+  <div class="print-modal">
+    <h3>🖨️ Pilih Ukuran PDF</h3>
+    <p>Sesuaikan dengan jumlah isian CV kamu</p>
+    <div class="print-opts">
+      <button class="print-opt sel" id="po-kecil" onclick="selectPrint('kecil')">
+        <div class="print-opt-icon">📄</div>
+        <div class="print-opt-info">
+          <div class="print-opt-title">Isian Sedikit</div>
+          <div class="print-opt-desc">Font besar, padding lega — 1-2 pengalaman</div>
+        </div>
+      </button>
+      <button class="print-opt" id="po-normal" onclick="selectPrint('normal')">
+        <div class="print-opt-icon">📋</div>
+        <div class="print-opt-info">
+          <div class="print-opt-title">Isian Normal</div>
+          <div class="print-opt-desc">Font standar — 3-4 pengalaman</div>
+        </div>
+      </button>
+      <button class="print-opt" id="po-banyak" onclick="selectPrint('banyak')">
+        <div class="print-opt-icon">📑</div>
+        <div class="print-opt-info">
+          <div class="print-opt-title">Isian Banyak</div>
+          <div class="print-opt-desc">Font kecil, padat — 5+ pengalaman</div>
+        </div>
+      </button>
+    </div>
+    <button class="print-go" onclick="doPrint()">🖨️ Simpan PDF Sekarang</button>
+    <br/>
+    <button class="print-cancel" onclick="closePrint()">Batal</button>
   </div>
 </div>
 
@@ -1580,6 +1750,44 @@ function resetCV() {
 }
 
 document.getElementById('cvDoc').addEventListener('input', autoSave);
+
+/* ── PRINT SIZE ── */
+let printSize = 'kecil';
+
+function openPrint() {
+  document.getElementById('printModalBg').classList.add('open');
+}
+
+function closePrint() {
+  document.getElementById('printModalBg').classList.remove('open');
+}
+
+function selectPrint(size) {
+  printSize = size;
+  ['kecil','normal','banyak'].forEach(s => {
+    document.getElementById('po-' + s).classList.remove('sel');
+  });
+  document.getElementById('po-' + size).classList.add('sel');
+}
+
+function doPrint() {
+  closePrint();
+  // Hapus class print lama
+  document.body.classList.remove('print-kecil','print-normal','print-banyak');
+  // Tambah class sesuai pilihan
+  document.body.classList.add('print-' + printSize);
+  setTimeout(() => {
+    window.print();
+    // Reset class setelah print
+    setTimeout(() => {
+      document.body.classList.remove('print-kecil','print-normal','print-banyak');
+    }, 1500);
+  }, 300);
+}
+
+document.getElementById('printModalBg').addEventListener('click', e => {
+  if (e.target.id === 'printModalBg') closePrint();
+});
 
 /* ── INIT ── */
 const savedTema = localStorage.getItem('cv4-tema');
