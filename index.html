@@ -873,17 +873,18 @@ body.editing [contenteditable="true"] {
     margin: 0;
   }
 
-  html, body {
+  html {
     margin: 0 !important;
     padding: 0 !important;
-    background: transparent !important;
-    min-height: unset !important;
-    width: 210mm !important;
   }
 
   body {
-    align-items: unset !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    min-height: unset !important;
     display: block !important;
+    width: 210mm !important;
   }
 
   /* Hide all UI elements */
@@ -899,19 +900,16 @@ body.editing [contenteditable="true"] {
   .photo-sizer,
   .range-sl { display: none !important; }
 
-  /* Remove edit outlines */
   [contenteditable] { outline: none !important; }
 
-  /* CV fills full A4 width */
   .cv {
     width: 210mm !important;
     max-width: 210mm !important;
     box-shadow: none !important;
     margin: 0 !important;
-    padding: 0 !important;
+    /* transform dari JS akan diterapkan di sini */
   }
 
-  /* Page breaks */
   .m-sec { page-break-inside: avoid; }
   .entry { page-break-inside: avoid; }
   .cv-hd { page-break-inside: avoid; }
@@ -1417,6 +1415,54 @@ const savedEmoji = localStorage.getItem('cv4-emoji');
 if (savedEmoji === 'false') { emojiOn = true; toggleEmoji(); }
 
 window.addEventListener('load', () => setTimeout(autoLoad, 400));
+
+/* ── AUTO SCALE UNTUK PDF ── */
+function autoScaleForPrint() {
+  const cv = document.getElementById('cvDoc');
+
+  // A4 height in px at 96dpi = 297mm
+  // 1mm = 3.7795px → 297mm = 1122.5px
+  const A4_H = 1122;
+  const A4_W = 794;
+
+  // Reset dulu ke ukuran normal
+  cv.style.fontSize = '';
+  cv.style.transform = '';
+  cv.style.transformOrigin = '';
+
+  // Ukur tinggi konten sekarang
+  const cvH = cv.scrollHeight;
+  const cvW = cv.scrollWidth;
+
+  if (cvH <= A4_H && cvW <= A4_W) {
+    // Konten LEBIH KECIL dari A4 → perbesar
+    const scaleH = A4_H / cvH;
+    const scaleW = A4_W / cvW;
+    const scale = Math.min(scaleH, scaleW, 1.4); // max 140% agar tidak terlalu besar
+    cv.style.transformOrigin = 'top left';
+    cv.style.transform = `scale(${scale})`;
+  } else if (cvH > A4_H) {
+    // Konten LEBIH BESAR dari A4 → perkecil
+    const scale = A4_H / cvH;
+    cv.style.transformOrigin = 'top left';
+    cv.style.transform = `scale(${scale})`;
+  }
+}
+
+// Override window.print untuk auto-scale dulu
+const _origPrint = window.print.bind(window);
+window.print = function() {
+  autoScaleForPrint();
+  setTimeout(() => {
+    _origPrint();
+    // Reset transform setelah print
+    setTimeout(() => {
+      const cv = document.getElementById('cvDoc');
+      cv.style.transform = '';
+      cv.style.transformOrigin = '';
+    }, 1000);
+  }, 300);
+};
 </script>
 </body>
-</html>
+     </html>
