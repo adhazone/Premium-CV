@@ -870,45 +870,66 @@ body.editing [contenteditable="true"] {
 
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 8mm;
   }
 
-  html {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  body {
+  html, body {
     margin: 0 !important;
     padding: 0 !important;
     background: white !important;
     min-height: unset !important;
     display: block !important;
-    width: 210mm !important;
+    width: 100% !important;
   }
 
-  /* Hide all UI elements */
-  .toolbar,
-  #saveInd,
-  .modal-bg,
-  .add-btn,
-  .add-sec,
-  .d-btn,
-  .e-del,
-  .sec-del,
-  .c-del,
-  .photo-sizer,
-  .range-sl { display: none !important; }
+  .toolbar, #saveInd, .modal-bg,
+  .add-btn, .add-sec, .d-btn, .e-del,
+  .sec-del, .c-del, .photo-sizer, .range-sl
+  { display: none !important; }
 
   [contenteditable] { outline: none !important; }
 
+  /* CV penuh lebar */
   .cv {
-    width: 210mm !important;
-    max-width: 210mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
     box-shadow: none !important;
     margin: 0 !important;
-    /* transform dari JS akan diterapkan di sini */
   }
+
+  /* Perbesar semua elemen agar memenuhi halaman */
+  .cv-name     { font-size: 2.8rem !important; }
+  .cv-role     { font-size: 0.9rem !important; letter-spacing: 3px !important; }
+  .cv-about    { font-size: 1rem !important; line-height: 1.9 !important; }
+
+  .s-ttl       { font-size: 0.78rem !important; letter-spacing: 2.5px !important; }
+  .sk-name     { font-size: 0.92rem !important; }
+  .sk-bar      { height: 5px !important; }
+  .s-tag       { font-size: 0.82rem !important; padding: 5px 11px !important; }
+  .lg-name     { font-size: 0.92rem !important; }
+  .lg-lv       { font-size: 0.8rem !important; }
+  .ac-txt      { font-size: 0.88rem !important; }
+  .ac-ic       { width: 20px !important; height: 20px !important; font-size: 0.72rem !important; }
+
+  .m-ttl       { font-size: 1.15rem !important; margin-bottom: 14px !important; }
+  .e-title     { font-size: 1rem !important; }
+  .e-org       { font-size: 0.88rem !important; }
+  .e-date      { font-size: 0.82rem !important; }
+  .e-desc      { font-size: 0.9rem !important; line-height: 1.8 !important; }
+
+  .contact-row { font-size: 0.85rem !important; }
+  .ft-q        { font-size: 0.92rem !important; }
+  .ft-n        { font-size: 0.78rem !important; }
+
+  /* Perbesar padding agar konten lebih menyebar */
+  .hd-left     { padding: 32px 18px 24px !important; }
+  .hd-right    { padding: 32px 32px 24px 24px !important; }
+  .cv-side     { padding: 26px 18px 32px !important; }
+  .cv-main     { padding: 26px 32px 32px 24px !important; }
+  .s-sec       { margin-bottom: 26px !important; }
+  .m-sec       { margin-bottom: 22px !important; }
+  .entry       { margin-bottom: 16px !important; padding-left: 14px !important; }
+  .cv-ft       { padding: 14px 32px !important; }
 
   .m-sec { page-break-inside: avoid; }
   .entry { page-break-inside: avoid; }
@@ -1415,54 +1436,6 @@ const savedEmoji = localStorage.getItem('cv4-emoji');
 if (savedEmoji === 'false') { emojiOn = true; toggleEmoji(); }
 
 window.addEventListener('load', () => setTimeout(autoLoad, 400));
-
-/* ── AUTO SCALE UNTUK PDF ── */
-function autoScaleForPrint() {
-  const cv = document.getElementById('cvDoc');
-
-  // A4 height in px at 96dpi = 297mm
-  // 1mm = 3.7795px → 297mm = 1122.5px
-  const A4_H = 1122;
-  const A4_W = 794;
-
-  // Reset dulu ke ukuran normal
-  cv.style.fontSize = '';
-  cv.style.transform = '';
-  cv.style.transformOrigin = '';
-
-  // Ukur tinggi konten sekarang
-  const cvH = cv.scrollHeight;
-  const cvW = cv.scrollWidth;
-
-  if (cvH <= A4_H && cvW <= A4_W) {
-    // Konten LEBIH KECIL dari A4 → perbesar
-    const scaleH = A4_H / cvH;
-    const scaleW = A4_W / cvW;
-    const scale = Math.min(scaleH, scaleW, 1.4); // max 140% agar tidak terlalu besar
-    cv.style.transformOrigin = 'top left';
-    cv.style.transform = `scale(${scale})`;
-  } else if (cvH > A4_H) {
-    // Konten LEBIH BESAR dari A4 → perkecil
-    const scale = A4_H / cvH;
-    cv.style.transformOrigin = 'top left';
-    cv.style.transform = `scale(${scale})`;
-  }
-}
-
-// Override window.print untuk auto-scale dulu
-const _origPrint = window.print.bind(window);
-window.print = function() {
-  autoScaleForPrint();
-  setTimeout(() => {
-    _origPrint();
-    // Reset transform setelah print
-    setTimeout(() => {
-      const cv = document.getElementById('cvDoc');
-      cv.style.transform = '';
-      cv.style.transformOrigin = '';
-    }, 1000);
-  }, 300);
-};
 </script>
 </body>
-     </html>
+   </html>
