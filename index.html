@@ -868,14 +868,22 @@ body.editing [contenteditable="true"] {
     color-adjust: exact !important;
   }
 
-  html { margin: 0; padding: 0; }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
 
-  body {
+  html, body {
     margin: 0 !important;
     padding: 0 !important;
     background: transparent !important;
     min-height: unset !important;
+    width: 210mm !important;
+  }
+
+  body {
     align-items: unset !important;
+    display: block !important;
   }
 
   /* Hide all UI elements */
@@ -894,12 +902,13 @@ body.editing [contenteditable="true"] {
   /* Remove edit outlines */
   [contenteditable] { outline: none !important; }
 
-  /* CV takes full width */
+  /* CV fills full A4 width */
   .cv {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
     box-shadow: none !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Page breaks */
@@ -1197,13 +1206,23 @@ const ESEL = [
 ].join(',');
 
 function toggleEdit() {
-  const editing = document.body.classList.toggle('editing');
-  document.querySelectorAll(ESEL).forEach(el => {
-    el.contentEditable = editing ? 'true' : 'false';
-  });
-  const btn = document.getElementById('editBtn');
-  btn.textContent = editing ? '✅ Selesai' : '✏️ Edit';
-  btn.className = editing ? 'tbtn active-edit' : 'tbtn';
+  const isEditing = document.body.classList.contains('editing');
+  
+  if (isEditing) {
+    // MATIKAN edit mode
+    document.body.classList.remove('editing');
+    document.querySelectorAll(ESEL).forEach(el => el.contentEditable = 'false');
+    const btn = document.getElementById('editBtn');
+    btn.textContent = '✏️ Edit';
+    btn.className = 'tbtn';
+  } else {
+    // AKTIFKAN edit mode
+    document.body.classList.add('editing');
+    document.querySelectorAll(ESEL).forEach(el => el.contentEditable = 'true');
+    const btn = document.getElementById('editBtn');
+    btn.textContent = '✅ Selesai';
+    btn.className = 'tbtn active-edit';
+  }
 }
 
 /* ── PHOTO ── */
