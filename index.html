@@ -859,19 +859,53 @@ body.editing [contenteditable="true"] {
 }
 
 /* =============================================
-   PRINT
+   PRINT — A4 OPTIMIZED
 ============================================= */
 @media print {
   *, *::before, *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
-  html, body { margin: 0; padding: 0; background: white !important; }
-  .toolbar, #saveInd, .modal-bg { display: none !important; }
-  .add-btn, .add-sec, .d-btn, .e-del, .sec-del, .c-del, .photo-sizer, .range-sl { display: none !important; }
+
+  html { margin: 0; padding: 0; }
+
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    min-height: unset !important;
+    align-items: unset !important;
+  }
+
+  /* Hide all UI elements */
+  .toolbar,
+  #saveInd,
+  .modal-bg,
+  .add-btn,
+  .add-sec,
+  .d-btn,
+  .e-del,
+  .sec-del,
+  .c-del,
+  .photo-sizer,
+  .range-sl { display: none !important; }
+
+  /* Remove edit outlines */
   [contenteditable] { outline: none !important; }
-  .cv { max-width: 100% !important; box-shadow: none !important; }
-  .m-sec, .entry { page-break-inside: avoid; }
+
+  /* CV takes full width */
+  .cv {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+  }
+
+  /* Page breaks */
+  .m-sec { page-break-inside: avoid; }
+  .entry { page-break-inside: avoid; }
+  .cv-hd { page-break-inside: avoid; }
 }
 
 /* =============================================
@@ -947,7 +981,7 @@ body.editing [contenteditable="true"] {
 
       <!-- Contacts -->
       <div class="contacts" id="contactList">
-        <div class="contact-row"><div class="c-ic">✉</div><span contenteditable="false">emailkamu@gmail.com</span><button class="c-del" onclick="this.parentElement.remove()">✕</button></div>
+        <div class="contact-row"><div class="c-ic">✉</div><span contenteditable="false"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e98c848880858288849ca98e84888085c78a8684">[email&#160;protected]</a></span><button class="c-del" onclick="this.parentElement.remove()">✕</button></div>
         <div class="contact-row"><div class="c-ic">📱</div><span contenteditable="false">+62 8xx-xxxx-xxxx</span><button class="c-del" onclick="this.parentElement.remove()">✕</button></div>
         <div class="contact-row"><div class="c-ic">📍</div><span contenteditable="false">Kota, Provinsi</span><button class="c-del" onclick="this.parentElement.remove()">✕</button></div>
         <div class="contact-row"><div class="c-ic">🔗</div><span contenteditable="false">linkedin.com/in/namakamu</span><button class="c-del" onclick="this.parentElement.remove()">✕</button></div>
@@ -1124,7 +1158,7 @@ body.editing [contenteditable="true"] {
 
 <div id="saveInd">💾 Tersimpan</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 'use strict';
 
 /* ── TEMA ── */
@@ -1357,13 +1391,4 @@ document.getElementById('cvDoc').addEventListener('input', autoSave);
 const savedTema = localStorage.getItem('cv4-tema');
 if (savedTema) {
   const btn = document.querySelector('.topt.' + savedTema);
-  if (btn) setTema(savedTema, btn);
-}
-
-const savedEmoji = localStorage.getItem('cv4-emoji');
-if (savedEmoji === 'false') { emojiOn = true; toggleEmoji(); }
-
-window.addEventListener('load', () => setTimeout(autoLoad, 400));
-</script>
-</body>
-</html>
+  if (btn) setTema(
